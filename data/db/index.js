@@ -18,8 +18,13 @@ const addUser = user => {
     .then(id => findUserById(id[0]));
 };
 
+const find = () => {
+  return db("users").select(["id", "username", "email"]);
+};
+
 module.exports = {
   addUser,
   findUserById,
-  findByUsername
+  findByUsername,
+  find
 };
