@@ -12,8 +12,7 @@ router.route("/").post(async (req, res) => {
   try {
     const user = await findByUsername(username);
     const isValid = bcrypt.compareSync(password, user.password);
-    console.log(isValid);
-    res.json("ok");
+    res.status(200).json({ message: "Logged in" });
   } catch (e) {
     res.status(500).json({
       message: "Server issue!"
