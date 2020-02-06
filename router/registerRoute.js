@@ -13,7 +13,7 @@ router.route("/").post(async (req, res) => {
   const user = { username, password: hash, email };
   try {
     const dbUser = await addUser(user);
-    res.status(200).json(dbUser);
+    res.status(201).json(dbUser);
   } catch (e) {
     res.status(500).json({
       message: "Could not create new user"
