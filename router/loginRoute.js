@@ -11,7 +11,9 @@ router.route("/").post(async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = await findByUsername(username);
-
+    const isValid = bcrypt.compareSync(password, user.password);
+    console.log(isValid);
+    res.json("ok");
   } catch (e) {
     res.status(500).json({
       message: "Server issue!"
