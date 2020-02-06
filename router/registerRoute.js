@@ -11,8 +11,14 @@ router.route("/").post(async (req, res) => {
   const hash = bcrypt.hashSync(password, salt);
 
   const user = { username, password: hash, email };
-  const dbUser = await addUser(user);
-  res.json(user);
+  try {
+    const dbUser = await addUser(user);
+    res.status(200).json(dbUser);
+  } catch (e) {
+    res.status(500).json({
+      message: "Could not create new user"
+    });
+  }
 });
 
 module.exports.router = router;
