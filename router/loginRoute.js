@@ -12,12 +12,13 @@ router.route("/").post(async (req, res) => {
   try {
     const user = await findByUsername(username);
     const isValid = bcrypt.compareSync(password, user.password);
-    if (isValid) {
+    if (user && isValid) {
+      req.session.user = user;
       res.status(200).json({ message: "Logged in" });
     }
   } catch (e) {
     res.status(500).json({
-      message: "Server issue!"
+      message: "Server issue!" + e
     });
   }
 });
